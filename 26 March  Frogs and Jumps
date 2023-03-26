@@ -1,0 +1,18 @@
+class Solution {
+  public:
+    int unvisitedLeaves(int n, int leaves, int frogs[]) {
+        // Code here
+        unordered_set<int>ds;//Unordered Set to mark 'leaves' visited by the frog
+        for(int i=0;i<n;i++){
+            if(!ds.count(frogs[i])){//If current 'stone' is not visited
+                for(int j=frogs[i];j<=leaves;j+=frogs[i])//Mark all the 'leaves' that ill be visited by current frog
+                    ds.insert(j);
+            }
+        }
+        int c=0;//COunter
+        for(int i=1;i<=leaves;i++)
+            if(!ds.count(i))//Current 'leaf' is unmarked
+                 c++;
+        return c;
+    }
+};
