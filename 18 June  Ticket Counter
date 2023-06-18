@@ -1,0 +1,45 @@
+class Solution {
+  public:
+  deque<int> firstk(deque<int> &dq,int k){
+     
+      while(k-- ){
+          dq.pop_front();
+      }
+    return dq;
+  }
+  
+ deque<int> lastk(deque<int> &dq,int k ){
+      
+      while(k--){
+          dq.pop_back();
+      
+      
+      }
+    return dq;
+  }
+
+    int distributeTicket(int N, int K) 
+    {
+    deque<int> dq ;
+    for(int i = 1 ; i<=N ; i++) dq.push_back(i) ;
+    bool in = 0; 
+    bool flag = false ; 
+    while(dq.size()>K)
+    {
+    in = 1; 
+    flag = false ; 
+    dq=firstk(dq,K);
+    if(dq.size()>K)
+    {
+    dq=lastk(dq,K);
+    flag = true ; 
+    }
+    }
+    
+    if(in==0) return dq.back() ;
+    
+    if(!flag && in) return dq.front() ; 
+    else
+    return dq.back();
+    }
+};
