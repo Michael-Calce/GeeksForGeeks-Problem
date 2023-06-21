@@ -1,0 +1,76 @@
+class Solution {
+  public:
+    bool lemonadeChange(int N, vector<int> &bills) {
+        map<int,int>mp;
+        int repay=0;
+        for(int i=0;i<bills.size();i++)
+        {
+           mp[bills[i]]++;
+           if(bills[i]>5)
+           {
+               repay=bills[i]-5;
+               if(repay==15)
+               {
+                   if(mp[10]>0)
+                   {
+                   mp[10]--;
+                   repay=repay-10;
+                   }
+                   if(mp[5]>0)
+                   {
+                       int n=repay/5;
+                       if(mp[5]>=n)
+                       {
+                           mp[5]=mp[5]-n;
+                           repay=0;
+                       }
+                   }
+                   if(repay>0)
+                   {
+                     
+                   return false;
+                   
+               }}
+               else
+               if(repay==10)
+               {
+                   if(mp[10]>0)
+                   {
+                   mp[10]--;
+                   repay=repay-10;
+                   }
+                   if(mp[5]>0 && repay!=0)
+                   {
+                       int n=repay/5;
+                       if(mp[5]>=n)
+                       {
+                           mp[5]=mp[5]-n;
+                           repay=0;
+                       }
+                   }
+                   if(repay>0)
+                   {
+                   return false;}
+               }
+               else
+               if(repay==5)
+               {
+                   if(mp[5]>0)
+                   {
+                       int n=repay/5;
+                       if(mp[5]>=n)
+                       {
+                           mp[5]=mp[5]-n;
+                           repay=0;
+                       }
+                   }
+                   if(repay>0)
+                   {
+                   return false;}
+               }
+           }
+        }
+        return true;
+        // code here
+    }
+};
