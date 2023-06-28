@@ -1,0 +1,32 @@
+class Solution
+{
+    bool solve(int N)
+    {
+        if(N == 1 || N == 7)
+            return true;
+        
+        if(N <= 9)
+            return false;
+        
+        int sum = 0;
+
+        while (N > 0){
+            int digit = N % 10;
+            sum += (digit * digit);
+            N /= 10;
+        }
+
+        return solve(sum);
+    }
+    
+public:
+    int nextHappy(int N)
+    {
+        ++N;
+        while(1){
+            if(solve(N)) return N;
+            N++;
+        }
+        return -1;
+    }
+};
