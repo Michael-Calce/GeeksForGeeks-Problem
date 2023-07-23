@@ -1,0 +1,33 @@
+class Solution
+{
+    public:
+    //Function to sort a linked list of 0s, 1s and 2s.
+    Node* segregate(Node *head) {
+         vector<int>vec(3,0);
+        Node* temp=head;
+        while(temp){
+            vec[temp->data]++;
+            temp=temp->next;
+        }
+        Node*head2=NULL;
+        Node*temp2=NULL;
+     
+        for(int i=0;i<vec.size();i++){
+            while(vec[i]--){
+                if(head2==NULL){
+                    head2=new Node(i);
+                    temp2=head2;
+                  
+                }
+                else{
+                head2->next=new Node(i);
+                head2=head2->next;
+                }
+            }
+        }
+        return temp2;
+        
+        // Add code here
+        
+    }
+};
