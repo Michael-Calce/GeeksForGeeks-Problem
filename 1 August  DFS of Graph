@@ -1,0 +1,35 @@
+class Solution {
+  public:
+    // Function to return a list containing the DFS traversal of the graph.
+        void dfs(vector<int> adj[], int s, vector<bool>& visited, vector<int>& result){
+        // 1st make visited
+        visited[s] = true;
+        
+        // 2nd store visited node
+        result.push_back(s);
+        
+        // 3rd repet step while loop is not empty
+        for(int u : adj[s]){
+            // condition not re-visit the node
+            if(visited[u] == false){
+                dfs(adj, u, visited, result);
+            }
+        }
+    }
+    
+    
+    vector<int> dfsOfGraph(int V, vector<int> adj[]) {
+        // Code here
+        
+        // step 1st create stack
+        vector<int> result;
+        
+        // step 2nd visited check array bool
+        vector<bool> visited(V, false);
+        
+        //step 3rd while the stack is not empty
+        dfs(adj, 0, visited, result);
+        
+        return result;
+    }
+};
