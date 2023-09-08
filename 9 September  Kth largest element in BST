@@ -1,0 +1,16 @@
+class Solution
+{
+    public:
+    void traversal(Node *root, vector<int>&v){
+        if(!root){return;}
+        traversal(root->right, v);
+        v.push_back(root->data);
+        traversal(root->left, v);
+    }
+    int kthLargest(Node *root, int K)
+    {
+        vector<int>v;
+        traversal(root, v);
+        return v[--K];
+    }
+};
