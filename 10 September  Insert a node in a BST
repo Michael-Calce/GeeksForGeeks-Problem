@@ -1,0 +1,26 @@
+class Solution
+{
+    public:
+        Node* insert(Node* node, int data) {
+            if(node != NULL){
+                if(node->data > data){
+                    if(node->left == NULL){
+                        node->left = new Node(data);
+                    } else {
+                        insert(node->left , data);
+                    }
+                } else if (node->data < data){
+                    if(node->right == NULL){
+                        node->right = new Node(data);
+                    } else {
+                        insert(node->right , data);
+                    }
+                }
+            }
+            else {
+                node = new Node(data);
+            }
+            return node ;
+    }
+
+};
