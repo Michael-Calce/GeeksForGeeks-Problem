@@ -1,0 +1,26 @@
+class Solution{
+    public:
+    // Function to check if given number n is a power of two.
+    bool isPowerofTwo(long long n){
+        
+        // Your code here
+        if(n==0)
+            return false;
+        
+        // It will check if only one set bit present in binary rep. of n
+        // eg. n = 1000 or 100 or 10 or 1 etc
+        // only for that case n will be power of 2
+        // because only for those cases n = 1*(2^(position of 1))+0
+        int count = 0;
+        while(!count){
+            count += (n&1);
+            n >>= 1;
+        }
+        
+        // After finding of 1 set bit if n becomes 0 then
+        // it will confirm that n will be power of 2
+        if(n==0)
+            return true;
+        return false;
+    }
+};
