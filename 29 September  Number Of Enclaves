@@ -1,0 +1,62 @@
+class Cell{
+  public:
+    int x, y;
+    Cell(int x, int y){
+        this->x = x;
+        this->y = y;
+    }
+};
+
+class Solution {
+  public:
+    // directional arrays
+    int dx[4] = {0, -1, 0, 1}, dy[4] = {-1, 0, 1, 0};
+    
+    // function to check is the cell should be pushed or not
+    bool isValid(int x, int y, int m, int n, vector<vector<bool>> &vis, vector<vector<int>> &grid){
+        if(x >= 0 && x < m && y >= 0 && y < n && !vis[x][y] && grid[x][y] == 1) return true;
+        return false;
+    }
+    
+    int numberOfEnclaves(vector<vector<int>> &grid) {
+        
+        // initializations
+        int m = grid.size(), n = grid[0].size();
+        vector<vector<bool>> vis(grid.size(), vector<bool>(grid[0].size(), false));
+        queue<Cell> q;
+        
+        // push all the bordering 1's into the queue
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j < n; j++){
+                if((grid[i][j] == 1)&&(i == 0 || i == m-1 || j == 0 || j == n-1)){
+                    q.push(Cell(i, j)); 
+                    vis[i][j] = true;
+                }
+            }
+        }
+        
+        // apply BFS and mark every 1 that can be visited from the bordering 1's
+        while(!q.empty()){
+            Cell c = q.front();
+            q.pop();
+            
+            for(int k = 0; k < 4; k++){
+                int new_x = c.x + dx[k], new_y = c.y + dy[k];
+                if(isValid(new_x, new_y, m, n, vis, grid)){
+                    q.push(Cell(new_x, new_y));
+                    vis[new_x][new_y] = true;
+                }
+            }
+        }
+        
+        // the 1's that cannot be visited form enclaves and hence, their count is the required solution 
+        int sol = 0;
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j < n; j++){
+                if(grid[i][j] == 1 && !vis[i][j]) sol++;
+            }
+        }
+        
+        return sol;
+    }
+};
