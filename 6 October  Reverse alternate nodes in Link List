@@ -1,0 +1,50 @@
+class Solution
+{
+    private: 
+     struct Node* reverse(struct Node* head){
+        struct Node* prev = NULL;
+        struct Node* curr = head;
+        
+        while(curr != NULL){
+            struct Node* Next = curr->next; 
+            curr->next = prev;
+            prev = curr;
+            curr = Next;
+        }
+        head = prev;
+        return head;
+     }
+    
+    public:
+
+    
+     struct Node* oddEvenList(struct Node* head) {
+        if(head == NULL || head->next == NULL || head->next->next == NULL )  return head;
+        struct Node* ptr = new Node(head->next->data);
+        struct Node* evenHead = ptr;
+        struct Node* cur = head;
+        struct Node* prev = NULL;
+        while(cur != NULL && cur->next != NULL){
+            prev = cur;
+            cur = cur->next;
+            prev->next = cur->next;
+            cur->next = NULL;
+            ptr->next = cur;
+            ptr = ptr->next;
+            cur = prev->next;
+        }
+      evenHead = evenHead->next;
+      if(cur != NULL)
+        cur->next = reverse(evenHead);
+        else
+        prev->next = reverse(evenHead);
+      
+      return head;
+    }
+    
+    void rearrange(struct Node *odd)
+    {
+        odd = oddEvenList(odd);
+        return;
+    }
+};
