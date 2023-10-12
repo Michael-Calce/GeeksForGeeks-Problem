@@ -1,0 +1,32 @@
+class Solution{
+
+public:
+     Node* solve2(Node* root, int x) {
+        if(root == NULL) return NULL;
+        
+        if(root -> data == x) return root;
+        
+        if(x < root -> data) {
+            return solve2(root -> left, x);
+            // Node* l = solve2(root -> left, x);
+            // return l;
+        }
+        
+        else {
+            Node* temp = solve2(root -> right, x);
+            if(temp == NULL) return root;
+            return temp;
+        }
+    }
+
+    int floor(Node* root, int x) {
+        // Code here
+        //if(x < root -> data) return -1;
+        
+        Node* res = solve2(root, x);
+        
+        if(res == NULL || res -> data > x) return -1;
+        
+        return res -> data;
+    }
+};
