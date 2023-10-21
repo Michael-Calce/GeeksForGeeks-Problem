@@ -1,0 +1,87 @@
+class Solution {
+private:
+    void addNodesBelowAtK(Node* root, int k, vector<int>& ans)
+    {
+        if (root == nullptr || k < 0)
+            return;
+
+        if (k == 0)
+        {
+            ans.push_back(root->data);
+            return;
+        }
+
+        addNodesBelowAtK(root->left, k - 1, ans);
+        addNodesBelowAtK(root->right, k - 1, ans);
+    }
+
+    Node* findTargetNode(Node* root, int target)
+    {
+        if (root == nullptr)
+            return nullptr;
+
+        if (root->data == target)
+            return root;
+
+        Node* l = findTargetNode(root->left, target);
+        Node* r = findTargetNode(root->right, target);
+
+        if (l != nullptr)
+            return l;
+        if (r != nullptr)
+            return r;
+
+        return nullptr;
+    }
+
+    int addNodesOnAncestorAtK(Node* root, Node* target, int k, vector<int>& ans)
+    {
+        if (root == nullptr)
+            return -1;
+
+        if (root == target) {
+            return 0;
+        }
+
+        int l = addNodesOnAncestorAtK(root->left, target, k, ans);
+
+        if (l >= 0) 
+        {
+            if (l + 1 == k) 
+                ans.push_back(root->data);
+            else 
+                addNodesBelowAtK(root->right, k - 2 - l, ans);
+
+            return l + 1;
+        }
+
+        
+        int r = addNodesOnAncestorAtK(root->right, target, k, ans);
+
+        if (r >= 0) 
+        {
+            if (r + 1 == k) 
+                ans.push_back(root->data);
+            else 
+                addNodesBelowAtK(root->left, k - 2 - r, ans);
+
+            return r + 1; 
+        }
+
+        return -1; 
+    }
+
+public:
+    vector<int> KDistanceNodes(Node* root, int target, int k)
+    {
+        vector<int> ans;
+
+        Node* targetNode = findTargetNode(root, target);
+
+        addNodesBelowAtK(targetNode, k, ans);
+        addNodesOnAncestorAtK(root, targetNode, k, ans);
+
+        sort(ans.begin(), ans.end());
+        return ans;
+    }
+};
