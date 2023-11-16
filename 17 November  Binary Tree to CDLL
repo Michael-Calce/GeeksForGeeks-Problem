@@ -1,0 +1,35 @@
+class Solution
+{
+public:
+    void preorder(Node *root, vector<int> &pre) {
+      if (root) {
+        preorder(root->left, pre);
+        pre.push_back(root->data);
+        preorder(root->right, pre);
+      }
+    }
+    
+    Node *bTreeToCList(Node *root)
+    {
+        if (!root)
+            return NULL;
+    
+      vector<int> pre;
+      preorder(root, pre);
+    
+      Node *head = newNode(pre[0]);
+      Node *p = head, *prev = head;
+    
+      for (int i = 1; i < pre.size(); i++) {
+        p->right = newNode(pre[i]);
+        p = p->right;
+        p->left = prev;
+        prev = p;
+      }
+    
+      prev->right = head;
+      head->left = prev;
+    
+      return head;
+    }
+};
