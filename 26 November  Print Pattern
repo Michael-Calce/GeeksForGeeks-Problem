@@ -1,0 +1,24 @@
+class Solution{
+public:
+    vector<int> pattern(int N){
+        // code here
+       vector<int> ans;
+       if(N<0){
+           ans.push_back(N);
+           return ans;
+       }
+       int n = ceil(float(N)/5);
+    //   cout<<n;
+       for(int i=0; i<n+1; i++){
+           ans.push_back(N);
+          N=N-5;
+       }
+       N+=5;
+       for(int i=0; i<n; i++){
+           N=N+5;
+        //   cout<<N<<endl;
+           ans.push_back(N);
+       }
+       return ans;
+    }
+};
