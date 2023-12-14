@@ -1,0 +1,26 @@
+class Solution{
+    public:
+        int n;
+        int dp[100001];
+        int M = 1e9+7;
+        int solve(int idx){
+            if(idx == n)  // we reached the target
+                return 1;
+                
+            if(idx > n)  // if go beyond n step return 0
+                return 0;
+                
+            if(dp[idx] != -1) return dp[idx];
+            
+            int onestep = solve(idx+1); //take 1 step further
+            int twostep = solve(idx+2); // take 2 step further
+            
+            return dp[idx] = (onestep + twostep)%M;
+        }
+        int nthPoint(int N){
+            // Code here
+            memset(dp,-1,sizeof(dp));
+            n = N;
+            return solve(0);
+        }
+};
