@@ -1,0 +1,21 @@
+class Solution
+{
+    public:
+    //Function to find the first position with different bits.
+    int posOfRightMostDiffBit(int m, int n)
+    {
+        if(m==n) return -1;
+        
+        int xorr = m^n;
+        int ans = 1;
+        while(xorr)
+        {
+            if(xorr&1) return ans;
+            
+            ans++;
+            xorr = xorr>>1;
+        }
+        
+        return 0;
+    }
+};
