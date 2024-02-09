@@ -1,0 +1,32 @@
+class Solution{
+    public:
+    //Function to check whether all nodes of a tree have the value 
+    //equal to the sum of their child nodes.
+    int solve(Node*root,bool& flag){
+        if(root==NULL){
+            return 0;
+        }
+        if(root->left == NULL && root->right==NULL){
+            return root->data;
+        }
+        long long lft = solve(root->left,flag);
+        long long rght = solve(root->right,flag);
+        
+        long long curr = root->data;
+        long long childs = lft+rght;
+        if(childs != curr){
+            flag=false;
+            return curr;
+        }
+        else{
+            return curr;
+        }
+    }
+    int isSumProperty(Node *root)
+    {
+     // Add your code here
+     bool flag=true;
+     solve(root,flag);
+     return flag;
+    }
+};
