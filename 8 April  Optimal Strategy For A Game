@@ -1,0 +1,30 @@
+class Solution{
+    public:
+    long long dp[1001][1001];
+    long long f(int i, int j, int x, int arr[])
+    {
+        if(i > j)
+        {
+            return 0;
+        }
+        if(dp[i][j] != -1)
+        {
+            return dp[i][j];
+        }
+        if(x == 1)
+        {
+            return dp[i][j] = max(arr[i] + f(i+1,j,0,arr),arr[j] + f(i,j-1,0,arr));
+        }
+        else
+        {
+            //opponent turn so if opponent plays optimally 
+            // it will give the minumum of the coins that our player can get from the opponents move
+            return dp[i][j] = min(f(i+1,j,1,arr),f(i,j-1,1,arr));
+        }
+    }
+    long long maximumAmount(int n, int arr[])
+    {
+        memset(dp,-1,sizeof(dp));
+        return f(0,n-1,1,arr);
+    }
+};
