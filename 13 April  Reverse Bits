@@ -1,0 +1,11 @@
+class Solution {
+  public:
+    long long reversedBits(long long x) {
+        // code here
+        bool arr[32]={0};
+        int index=0;
+        while(x) arr[index++]=x%2,x/=2;
+        for(int i=0;i<32;i++)x+=arr[i]*pow(2,31-i);
+        return x;
+    }
+};
