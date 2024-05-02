@@ -1,0 +1,39 @@
+class Solution
+{
+    public:
+    //Function to serialize a tree and return a list containing nodes of tree.
+    void ino(Node *root, vector<int> &v){
+        if(root==NULL) return ;
+        ino(root->left,v);
+        v.push_back(root->data);
+        ino(root->right,v);
+    }
+    
+    vector<int> serialize(Node *root) 
+    {
+        vector<int>v;
+        ino(root,v);
+        
+    
+        return v;
+    }
+    
+    Node * deSel(vector<int> &A,int &ind){
+        if(ind >= A.size() || A[ind] == -1) return NULL;
+        
+        Node *root = new Node(A[ind++]);
+        root->right = deSel(A,ind);
+        root->left = deSel(A,ind);
+    
+        
+        return root;
+    }
+    
+    Node * deSerialize(vector<int> &A)
+    {
+       //Your code here
+       int ind = 0;
+       return deSel(A,ind);
+    }
+
+};
