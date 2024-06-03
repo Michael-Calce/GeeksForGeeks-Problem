@@ -1,0 +1,38 @@
+class Solution {
+  public:
+    string binaryNextNumber(string s) 
+    {
+        // may2021
+        
+        string result="";
+        
+        int zerofound=0;
+        for(int i=s.size()-1 ; i>=0 ; i--)
+          {
+              if(s[i]=='1' && zerofound==0 )
+               {
+                   result='0'+result;
+               }
+               else if(s[i]=='0' && zerofound==0)
+                {
+                    result='1'+result;
+                    zerofound=1;
+                }
+                else
+                 result=s[i]+result;
+          }
+        
+        if(zerofound==0) result='1'+result;
+        
+        int j=0;
+        
+        while(result[j]=='0')
+         {
+             j++;
+         }
+        result=result.substr(j, result.size());
+        
+        return result;
+        
+    }
+};
