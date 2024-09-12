@@ -1,0 +1,22 @@
+class Solution
+{
+    public:
+    //Function to find the maximum money the thief can get.
+    int FindMaxSum(int arr[], int n)
+    {
+        // Your code here
+        int next=0;
+        int nextnext=0;
+        int curr=0;
+        for(int index=n-1;index>=0;index--)
+        {
+            int inc = arr[index] + nextnext;
+            int exc = 0 + next;
+        
+            curr = max(inc,exc);
+            nextnext=next;
+            next=curr;
+        }
+        return next;
+    }
+};
