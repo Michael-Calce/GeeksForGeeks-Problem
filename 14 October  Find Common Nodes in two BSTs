@@ -1,0 +1,39 @@
+class Solution
+{
+    public:
+    //Function to find the nodes that are common in both BST. 
+    void in(unordered_map<int,int>&m,Node *root)
+    {
+        if(root==NULL)
+        {
+           return; 
+        }
+        in(m,root->left);
+        m[root->data]=1;
+        in(m,root->right);
+    }
+    void find(vector<int>&v,unordered_map<int,int>&m,Node *root)
+    {
+        if(root==NULL)
+        {
+           return; 
+        }
+        find(v,m,root->left);
+        
+        if(m.find(root->data)!=m.end())
+        {
+            v.push_back(root->data);
+        }
+        find(v,m,root->right);
+    }
+    vector <int> findCommon(Node *root1, Node *root2)
+    {
+     //Your code here
+     unordered_map<int,int>m;
+     in(m,root1);
+     vector<int>v;
+     find(v,m,root2);
+    //  sort(v.begin(),v.end());
+     return v;
+    }
+};
