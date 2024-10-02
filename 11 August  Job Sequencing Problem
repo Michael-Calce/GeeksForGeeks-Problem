@@ -1,0 +1,50 @@
+class Solution 
+{
+    public:
+    int findUncompleted(vector<bool>& don, int j, int n){
+        for(int i=j; i>n; i--){
+            if(don[i]==false)
+                return i;
+        }
+        return -1;
+    }
+    //Function to find the maximum profit and the number of jobs done.
+    vector<int> JobScheduling(Job arr[], int n) 
+    { 
+        // your code here
+        int mxdead = 0;
+        vector<pair<int, int>> vec;
+        for(int i=0; i<n; i++){
+            vec.push_back({arr[i].profit, arr[i].dead});
+            mxdead = max(mxdead, arr[i].dead);
+        }
+        sort(vec.begin(), vec.end(), greater<pair<int, int>>());
+        vector<bool>don(mxdead, false);
+        int count = 0, prof = 0;
+        int fillUntil = 0;
+        for(int i=0; i<n; i++){
+            int dad = vec[i].second;
+            int profi = vec[i].first;
+            if(!don[dad]){
+                don[dad] = true;
+                count++;
+                prof += profi;
+            }
+            else{
+                if(dad <= fillUntil){
+                    continue;
+                }
+                int done = findUncompleted(don, dad-1, fillUntil);
+                if(done!=-1){
+                    don[done] = true;
+                    count++;
+                    prof += profi;
+                }
+                else{
+                    fillUntil = max(fillUntil, dad);
+                }
+            }
+        }
+        return {count, prof};
+    } 
+};
