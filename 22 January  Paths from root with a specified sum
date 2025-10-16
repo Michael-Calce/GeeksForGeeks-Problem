@@ -1,0 +1,34 @@
+class Solution
+{
+    public:
+    void FindingNodes(Node* root,int sum,vector<vector<int>> &sol,vector<int> &nodes,int &sum1){
+	
+    	if(root==NULL){
+    		return;
+    	}
+    	
+    	nodes.push_back(root->key);
+    	sum1+=root->key;
+    	if(sum1==sum){
+    		sol.push_back(nodes);
+    		
+    	}
+    	if(root->left!=NULL){
+    		FindingNodes(root->left,sum,sol,nodes,sum1);
+    	}
+    	if(root->right!=NULL){
+    		FindingNodes(root->right,sum,sol,nodes,sum1);
+    	}
+    	sum1-=root->key;
+    	nodes.pop_back();
+    }
+    vector<vector<int>> printPaths(Node *root, int sum)
+    {
+        //code here
+        vector<vector<int>> matrix;
+        vector<int> nodes;
+    	int sum1=0;
+    	FindingNodes(root,sum,matrix,nodes,sum1);
+    	return matrix;
+    }
+};
