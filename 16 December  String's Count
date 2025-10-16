@@ -1,0 +1,5 @@
+long long int countStr(long long int n){
+    long long int ans = 1 + 2*n + 3*n*(n - 1)/2 + n*(n - 1)*(n - 2)/2;
+    
+    return ans;
+}
