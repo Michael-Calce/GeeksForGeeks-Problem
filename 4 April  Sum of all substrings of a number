@@ -1,0 +1,16 @@
+class Solution
+{
+    public:
+    long long sumSubstrings(string s){
+        
+        long long prev = s[0]-'0',mod = 1e9+7,res = prev;
+        
+        for(int i=1;i<s.size();i++)
+        {
+            prev = ((prev*10) + ((s[i]-'0')*(i+1)))%mod;
+            res = (res+prev)%mod;
+        }
+        
+        return res;
+    }
+};
