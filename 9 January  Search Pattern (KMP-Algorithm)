@@ -1,0 +1,19 @@
+class Solution
+{
+    public:
+        vector <int> search(string pat, string txt)
+        {
+            //code hee.
+            
+            vector<int> ans;
+            int index = txt.find(pat, 0);
+        
+            while (index != string::npos) {     // if pattern is not present in txt
+                ans.push_back(index + 1);
+                index = txt.find(pat, index + 1); 
+            }
+        
+            return ans;
+        }
+     
+};
