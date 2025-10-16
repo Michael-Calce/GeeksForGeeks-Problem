@@ -1,0 +1,21 @@
+class Solution
+{
+    public:
+        // Should return decimal equivalent modulo 1000000007 of binary linked list 
+        long long unsigned int decimalValue(Node *head)
+        {
+           // Your Code Here
+           long long unsigned int ans = 0;
+           const int MOD= 1000000007;
+           
+           while(head) {
+               ans <<= 1;
+               
+               ans |= head->data;
+               ans %= MOD;
+               
+               head = head->next;
+           }
+           return ans;
+        }
+};
