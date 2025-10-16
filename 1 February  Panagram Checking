@@ -1,0 +1,19 @@
+class Solution
+{
+  public:
+    //Function to check if a string is Pangram or not.
+    bool checkPangram (string s) {
+        // your code here
+        unordered_set<char>st;
+        for(auto itr:s)
+        {
+            if(isalpha(itr))
+            {
+                st.insert(tolower(itr));
+            }
+        }
+        if(st.size()==26) return true;
+        return false;
+    }
+
+};
