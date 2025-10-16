@@ -1,0 +1,39 @@
+class Solution {
+  public:
+    int minCandy(int N, vector<int> &ratings) {
+        // code here
+        int candy = ratings.size();
+        int i = 1;
+        int n = ratings.size();
+
+        while(i < n)
+        {
+            if(ratings[i] == ratings[i-1])
+            {
+                i++;
+                continue;
+            }
+        
+
+            int peak = 0;
+            while(i < n and ratings[i] > ratings[i-1])
+            {
+                peak++;
+                candy += peak;
+                i++;
+            }
+
+            int valley = 0;
+            while(i < n and ratings[i] < ratings[i-1])
+            {
+                valley++;
+                candy += valley;
+                i++;
+            }
+
+            candy = candy - min(peak, valley);
+        }
+
+        return candy;
+    }
+};
