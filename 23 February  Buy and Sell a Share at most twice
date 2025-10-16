@@ -1,0 +1,46 @@
+class Solution
+{
+    public:
+        //User function Template for C++
+        
+        int maxProfit(vector<int>&price)
+{
+    //Write your code here..
+    // b -> s ->b -> s 
+    // first fix selling price;
+    int n = price.size();
+    if (n <= 1) {
+        return 0; // There are not enough days to make a profit.
+    }
+
+    vector<int> profit(n, 0);
+
+    
+    int sell_fix = price[n-1];
+    
+    for(int i = n-2 ; i>=0;i--)
+    {
+        if(price[i] > sell_fix)
+        {
+            sell_fix = price[i];
+        }
+        
+        profit[i] = max(profit[i+1] , (sell_fix - price[i])   );
+    }
+    
+    // now fix buying price
+    int buy_fix = price[0];
+    for(int i =1;i<n;i++)
+    {
+        if(price[i]<buy_fix)
+        {
+            buy_fix = price[i];
+        }
+        profit[i] = max(profit[i-1],profit[i] + (price[i] -  buy_fix )  );
+    }
+    
+    int result = profit[n-1];
+    
+    return result;
+}
+};
