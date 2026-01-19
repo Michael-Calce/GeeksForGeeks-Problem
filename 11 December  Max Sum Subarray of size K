@@ -1,0 +1,32 @@
+class Solution{   
+public:
+    long maximumSumSubarray(int k, vector<int> &Arr , int n){
+        // code here 
+        long ans=0;
+        
+        long sum=0;
+       
+        vector<long>Psum(n);
+        Psum[0]=Arr[0];
+        for(int i=1;i<n;i++)
+        {
+             Psum[i]=Arr[i]+Psum[i-1];
+        }
+        
+        for(int i=0;i<=n-k;i++)
+        {
+            long a=0;
+            if(i==0)
+            {
+                
+             a = Psum[i+k-1];
+            }
+            else
+           {  a= Psum[i+k-1]-Psum[i-1];}
+            
+            if(a>ans)
+            ans=a;
+        }
+    return ans;
+    }
+};
