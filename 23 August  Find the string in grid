@@ -1,0 +1,42 @@
+class Solution {
+public:
+	bool check(vector<vector<char>> &a,int m,int n,int i,int j,string &s,int k,int l,int di,int dj)
+    {
+        if(k==l)
+        return 1;
+        
+        if(i>=0 && j>=0 && i<m && j<n && a[i][j]==s[k])
+        return check(a,m,n,i+di,j+dj,s,k+1,l,di,dj);
+        
+        return 0;
+    }
+
+	vector<vector<int>>searchWord(vector<vector<char>>a, string s){
+	    // Code here
+	    int m=a.size(),n=a[0].size();
+	    int i,j;
+	    int di[]={-1,-1,-1,0,0,1,1,1};
+        int dj[]={-1,0,1,-1,1,-1,0,1};
+	    vector<vector<int>> ans;
+	    
+	    for(i=0;i<m;i++)
+	    {
+	        for(j=0;j<n;j++)
+	        {
+	            if(a[i][j]==s[0])
+	            {
+	                for(int k=0;k<8;k++)
+	                {
+	                    if(check(a,m,n,i,j,s,0,s.length(),di[k],dj[k]))
+	                    {
+	                        ans.push_back({i,j});
+	                        break;
+	                    }
+	                }
+	            }
+	        }
+	    }
+	    
+	    return ans;
+	}
+};
