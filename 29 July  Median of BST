@@ -1,0 +1,18 @@
+float findMedian(struct Node *root)
+{
+    vector<int> sortedNodeData;
+    Node* currNode=root;
+    stack<Node*> sk;
+    while(currNode!=NULL || !sk.empty()) {
+        while(currNode!=NULL) {
+            sk.push(currNode);
+            currNode=currNode->left;
+        }
+        currNode=sk.top();
+        sk.pop();
+        sortedNodeData.push_back(currNode->data);
+        currNode=currNode->right;
+    }
+    return (sortedNodeData.size() & 1) ? (float)sortedNodeData[sortedNodeData.size()>>1] :
+    ((sortedNodeData[(sortedNodeData.size()>>1)-1]+sortedNodeData[sortedNodeData.size()>>1])/2.0f);
+}
