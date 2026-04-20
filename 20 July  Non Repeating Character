@@ -1,0 +1,20 @@
+class Solution
+{
+    public:
+    char nonrepeatingCharacter(string str)
+    {
+        vector<int> freq(26, 0);
+        int n = str.length();
+        int left = 0;
+        for(int right = 0; right<n; right++){
+           freq[str[right]-'a']++;
+           while(left < n && freq[str[left]-'a'] > 1){
+               left++;
+           }
+        }
+        if(left == n){
+            return '$';
+        }
+        return str[left];  
+    }
+};
